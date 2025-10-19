@@ -18,6 +18,8 @@
   max="9"
   value={value === 0 ? "" : value}
   on:input={handleInput}
+  data-row={row}
+  data-col={col}
 />
 
 <style>
