@@ -1,5 +1,5 @@
 <script>
-  import SudokuGrid from "./components/sudokuGrid.svelte";
+  import SudokuGrid from "./components/SudokuGrid.svelte";
   import Controls from "./components/Controls.svelte";
   import { generateSudoku, isValid } from "./utils/sudoku.js";
 

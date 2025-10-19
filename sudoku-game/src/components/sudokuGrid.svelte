@@ -20,7 +20,8 @@
 <style>
   .grid {
     display: grid;
-    grid-template-columns: repeat(9, 1fr);
+    grid-template-columns: repeat(6, 50px);
     gap: 2px;
+    justify-content: center;
   }
 </style>
