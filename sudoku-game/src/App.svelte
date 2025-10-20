@@ -14,8 +14,8 @@
   }
 
   function checkSolution() {
-    for (let r = 0; r < 9; r++) {
-      for (let c = 0; c < 9; c++) {
+    for (let r = 0; r < 6; r++) {
+      for (let c = 0; c < 6; c++) {
         const val = board[r][c];
         if (val !== 0 && !isValid(board, r, c, val)) {
           alert("Incorrect solution!");

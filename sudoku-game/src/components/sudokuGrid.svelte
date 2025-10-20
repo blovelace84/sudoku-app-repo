@@ -21,6 +21,10 @@
   .grid {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(6, 50px);
+    margin: 20px auto;
+    border: 2px solid green;
+    background-color: beige;
     gap: 2px;
     justify-content: center;
   }
