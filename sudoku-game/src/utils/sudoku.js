@@ -12,6 +12,17 @@ export function generateSudoku() {
   ];
 }
 
+export function getSolution() {
+    return[
+        [1, 4, 3, 6, 2, 5],
+        [2, 5, 6, 4, 1, 3],
+        [3, 2, 5, 2, 6, 4],
+        [4, 6, 1, 5, 3, 2],
+        [5, 3, 2, 1, 4, 6],
+        [6, 1, 4, 3, 5, 1],
+    ];
+}
+    
 // Validate placing `value` at (row, col)
 export function isValid(board, row, col, value) {
   if (!value || value < 1 || value > 6) return false;
