@@ -1,7 +1,10 @@
 <script>
   import Cell from "./Cell.svelte";
+
   export let board;
   export let onCellChange;
+  /** @type {{ row: number, col: number } | null} */
+  export let highlightedCell = null;
 </script>
 
 <div class="grid">
@@ -11,7 +14,10 @@
         value={cell}
         row={rowIndex}
         col={colIndex}
-        on:input={(e) => onCellChange(rowIndex, colIndex, e.detail)}
+        highlighted={highlightedCell &&
+          highlightedCell.row === rowIndex &&
+          highlightedCell.col === colIndex}
+        onInput={(val) => onCellChange(rowIndex, colIndex, val)}
       />
     {/each}
   {/each}
@@ -20,12 +26,10 @@
 <style>
   .grid {
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(6, 50px);
     grid-template-rows: repeat(6, 50px);
-    margin: 20px auto;
-    border: 2px solid green;
-    background-color: beige;
     gap: 2px;
     justify-content: center;
+    margin: 20px auto;
   }
 </style>
