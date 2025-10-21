@@ -2,19 +2,24 @@
   import { fade } from "svelte/transition";
 
   export let value;
-  export const row = undefined;
-  export const col = undefined;
+  export let row;
+  export let col;
   export let highlighted = false;
+  export let onInput = () => {};
 
-  // ✅ Svelte 5: use custom event via props instead of dispatch
-  export let onInput = (_value) => {};
+  // Convert 0 to an empty string for display
+  let displayValue = value === 0 ? "" : value;
+
+  // Update displayed value whenever prop changes
+  $: displayValue = value === 0 ? "" : value;
 
   function handleInput(e) {
     const val = parseInt(e.target.value);
+
     if (val >= 1 && val <= 6) {
       onInput(val);
     } else if (e.target.value === "") {
-      onInput(0);
+      onInput(0); // treat empty input as 0
     } else {
       e.target.value = "";
     }
@@ -22,7 +27,12 @@
 </script>
 
 <div class="cell {highlighted ? 'highlight' : ''}" transition:fade>
-  <input type="text" maxlength="1" bind:value on:input={handleInput} />
+  <input
+    type="text"
+    maxlength="1"
+    bind:value={displayValue}
+    on:input={handleInput}
+  />
 </div>
 
 <style>
@@ -32,7 +42,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid groove;
+    border: 1px solid gray;
     background-color: green;
     transition: background-color 0.5s ease;
   }

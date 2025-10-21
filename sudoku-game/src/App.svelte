@@ -4,15 +4,19 @@
   import Hint from "./components/Hint.svelte";
   import { generateSudoku, getSolution, isValid } from "./utils/sudoku.js";
 
-  let board = generateSudoku();
+  let difficulty = "medium";
+  let board = generateSudoku(difficulty);
   let solution = getSolution();
+  let highlightedCell = null;
 
   function handleCellChange(row, col, val) {
     board[row][col] = val;
   }
 
   function newGame() {
-    board = generateSudoku();
+    board = generateSudoku(difficulty);
+    solution = getSolution();
+    highlightedCell = null;
   }
 
   function checkSolution() {
@@ -29,12 +33,11 @@
   }
 
   function giveHint() {
-    //find the first empty cell and fill it with the correct value
     for (let r = 0; r < 6; r++) {
       for (let c = 0; c < 6; c++) {
         if (board[r][c] === 0) {
-          board[r][c] = solution[r][c]; //fill with the correct value
-          alert(`Hint place at row ${r + 1}, column ${c + 1}`);
+          board[r][c] = solution[r][c];
+          highlightedCell = { row: r, col: c };
           return;
         }
       }

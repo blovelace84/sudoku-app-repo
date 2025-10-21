@@ -1,47 +1,80 @@
 // src/utils/sudoku.js
 
-// Static 6x6 puzzle to start with
-export function generateSudoku() {
-  return [
-    [0, 0, 3, 0, 2, 0],
-    [0, 5, 0, 0, 0, 6],
-    [3, 0, 0, 2, 0, 0],
-    [0, 6, 0, 0, 0, 3],
-    [0, 0, 0, 0, 4, 0],
-    [0, 1, 0, 0, 0, 0],
-  ];
+// ✅ Generate a full 6x6 Sudoku solution
+export function generateFullBoard() {
+  const board = Array.from({ length: 6 }, () => Array(6).fill(0));
+  solveSudoku(board);
+  return board;
 }
 
-export function getSolution() {
-    return[
-        [1, 4, 3, 6, 2, 5],
-        [2, 5, 6, 4, 1, 3],
-        [3, 2, 5, 2, 6, 4],
-        [4, 6, 1, 5, 3, 2],
-        [5, 3, 2, 1, 4, 6],
-        [6, 1, 4, 3, 5, 1],
-    ];
-}
-    
-// Validate placing `value` at (row, col)
-export function isValid(board, row, col, value) {
-  if (!value || value < 1 || value > 6) return false;
-
-  // Check row and column
+// ✅ Check if placing a number is valid
+export function isValid(board, row, col, num) {
   for (let i = 0; i < 6; i++) {
-    if (board[row][i] === value && i !== col) return false;
-    if (board[i][col] === value && i !== row) return false;
+    if (board[row][i] === num || board[i][col] === num) {
+      return false;
+    }
   }
 
-  // Check 2x3 subgrid
   const boxRow = Math.floor(row / 2) * 2;
   const boxCol = Math.floor(col / 3) * 3;
 
-  for (let r = boxRow; r < boxRow + 2; r++) {
-    for (let c = boxCol; c < boxCol + 3; c++) {
-      if ((r !== row || c !== col) && board[r][c] === value) return false;
+  for (let r = 0; r < 2; r++) {
+    for (let c = 0; c < 3; c++) {
+      if (board[boxRow + r][boxCol + c] === num) {
+        return false;
+      }
     }
   }
 
   return true;
+}
+
+// ✅ Backtracking solver
+function solveSudoku(board) {
+  for (let row = 0; row < 6; row++) {
+    for (let col = 0; col < 6; col++) {
+      if (board[row][col] === 0) {
+        for (let num = 1; num <= 6; num++) {
+          if (isValid(board, row, col, num)) {
+            board[row][col] = num;
+            if (solveSudoku(board)) return true;
+            board[row][col] = 0;
+          }
+        }
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
+// ✅ Create a playable puzzle with some numbers removed
+export function generateSudoku(difficulty = 'medium') {
+  const solution = generateFullBoard();
+
+  // Deep copy
+  const puzzle = solution.map((row) => [...row]);
+
+  // Adjust number of empty cells by difficulty
+  let empties;
+  if (difficulty === 'easy') empties = 10;
+  else if (difficulty === 'hard') empties = 20;
+  else empties = 15; // medium default
+
+  while (empties > 0) {
+    const row = Math.floor(Math.random() * 6);
+    const col = Math.floor(Math.random() * 6);
+    if (puzzle[row][col] !== 0) {
+      puzzle[row][col] = 0;
+      empties--;
+    }
+  }
+
+  return puzzle;
+}
+
+// ✅ Expose solver for hint feature
+export function getSolution() {
+  const board = generateFullBoard();
+  return board;
 }
