@@ -5,7 +5,7 @@
   export let row;
   export let col;
   export let highlighted = false;
-  export let onInput = () => {};
+  export let onInput = (val) => {};
 
   // Convert 0 to an empty string for display
   let displayValue = value === 0 ? "" : value;
