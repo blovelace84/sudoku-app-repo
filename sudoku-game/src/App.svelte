@@ -1,4 +1,6 @@
 <script>
+  // @ts-nocheck
+
   import SudokuGrid from "./components/SudokuGrid.svelte";
   import Controls from "./components/Controls.svelte";
   import Hint from "./components/Hint.svelte";

@@ -1,22 +1,19 @@
 <script>
-  import Cell from "./Cell.svelte";
-
-  export let board;
+  export let board = [];
   export let onCellChange;
-  /** @type {{ row: number, col: number } | null} */
-  export let highlightedCell = null;
-
-  // Return a CSS class name for the 6x6 Sudoku sub-section the cell belongs to.
-  // For a 6x6 board with 2x3 blocks, block rows are size 2 and block cols are size 3.
-  function getSectionClass(row, col) {
-    const blockRow = Math.floor(row / 2);
-    const blockCol = Math.floor(col / 3);
-    return `section-${blockRow}-${blockCol}`;
-  }
 
   function handleInput(event, row, col) {
-    const val = event.detail;
+    const val = parseInt(event.target.value) || 0;
     onCellChange(row, col, val);
+  }
+
+  function getBorderClass(row, col) {
+    let classes = [];
+    if (row % 3 === 0) classes.push("top-border");
+    if (col % 3 === 0) classes.push("left-border");
+    if (row === 8) classes.push("bottom-border");
+    if (col === 8) classes.push("right-border");
+    return classes.join(" ");
   }
 </script>
 
@@ -26,11 +23,7 @@
       <input
         type="text"
         maxlength="1"
-        class="cell
-        {highlightedCell?.row === rowIndex && highlightedCell?.col === colIndex
-          ? 'highlight'
-          : ''}
-        {getSectionClass(rowIndex, colIndex)}"
+        class="cell {getBorderClass(rowIndex, colIndex)}"
         value={cell === 0 ? "" : cell}
         on:input={(e) => handleInput(e, rowIndex, colIndex)}
       />
@@ -41,40 +34,39 @@
 <style>
   .sudoku-grid {
     display: grid;
-    grid-template-columns: repeat(6, 50px);
-    grid-template-rows: repeat(6, 50px);
-    gap: 2px;
-    justify-content: center;
+    grid-template-columns: repeat(9, 45px);
+    grid-template-rows: repeat(9, 45px);
+    border: 3px solid black;
+    background-color: white;
+    width: max-content;
     margin: 20px auto;
   }
+
   .cell {
-    width: 50px;
-    height: 50px;
+    width: 45px;
+    height: 45px;
     text-align: center;
-    font-size: 20px;
-    border: 1px solid gray;
-    background-color: green;
+    font-size: 1.4rem;
+    border: 1px solid #1278d7;
     outline: none;
-  }
-  .cell.highlight {
-    background-color: #fffa9e;
-    animation: pulse 1s ease-in-out;
+    background-color: green;
   }
 
-  /* ✅ Subgrid separation using thicker borders */
-  .section-0-0 {
-    border-right: 3px solid black;
-    border-bottom: 3px solid black;
-  }
-  .section-0-1 {
-    border-bottom: 3px solid black;
-  }
-  .section-1-0 {
-    border-right: 3px solid black;
+  .cell:focus {
+    background-color: #4a1dbc;
   }
 
-  /* optional hover styling */
-  .cell:hover {
-    background-color: #21c8db;
+  /* Bold borders every 3x3 */
+  .top-border {
+    border-top: 3px solid black;
+  }
+  .left-border {
+    border-left: 3px solid black;
+  }
+  .bottom-border {
+    border-bottom: 3px solid black;
+  }
+  .right-border {
+    border-right: 3px solid black;
   }
 </style>

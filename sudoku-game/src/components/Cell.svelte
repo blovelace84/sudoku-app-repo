@@ -2,8 +2,8 @@
   import { fade } from "svelte/transition";
 
   export let value;
-  export let row;
-  export let col;
+  export const row = undefined;
+  export const col = undefined;
   export let highlighted = false;
   export let onInput = (val) => {};
 
