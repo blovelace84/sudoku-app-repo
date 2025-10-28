@@ -45,13 +45,13 @@
   }
 
   .cell {
-    width: 50px;
-    height: 50px;
+    width: 45px;
+    height: 45px;
     text-align: center;
     font-size: 1.4rem;
-    border: 1px solid #ccc;
+    border: 1px solid #1278d7;
     outline: none;
-    background-color: white;
+    background-color: darkgreen;
     box-sizing: border-box;
     transition: background-color 0.2s;
   }
