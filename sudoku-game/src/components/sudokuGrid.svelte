@@ -34,39 +34,48 @@
 <style>
   .sudoku-grid {
     display: grid;
-    grid-template-columns: repeat(9, 45px);
-    grid-template-rows: repeat(9, 45px);
+    grid-template-columns: repeat(9, 50px);
+    grid-template-rows: repeat(9, 50px);
     border: 3px solid black;
     background-color: white;
-    width: max-content;
+    width: 450px;
+    height: 450px;
     margin: 20px auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   }
 
   .cell {
-    width: 45px;
-    height: 45px;
+    width: 50px;
+    height: 50px;
     text-align: center;
     font-size: 1.4rem;
-    border: 1px solid #1278d7;
+    border: 1px solid #ccc;
     outline: none;
-    background-color: green;
+    background-color: white;
+    box-sizing: border-box;
+    transition: background-color 0.2s;
   }
 
   .cell:focus {
-    background-color: #4a1dbc;
+    background-color: #cde7ff;
   }
 
-  /* Bold borders every 3x3 */
+  /* ✅ Thick lines every 3x3 for visual clarity */
   .top-border {
-    border-top: 3px solid black;
+    border-top: 3px solid black !important;
   }
   .left-border {
-    border-left: 3px solid black;
+    border-left: 3px solid black !important;
   }
   .bottom-border {
-    border-bottom: 3px solid black;
+    border-bottom: 3px solid black !important;
   }
   .right-border {
-    border-right: 3px solid black;
+    border-right: 3px solid black !important;
+  }
+
+  /* ✅ Optional subtle hover effect */
+  .cell:hover {
+    background-color: #f8f8f8;
   }
 </style>
