@@ -97,8 +97,6 @@
 
   <SudokuGrid {board} onCellChange={handleCellChange} />
 
-  <button on:click={newGame}>New Game</button>
-
   <Controls onNewGame={newGame} onCheckSolution={checkSolution} />
   <Hint onHint={giveHint} />
 
