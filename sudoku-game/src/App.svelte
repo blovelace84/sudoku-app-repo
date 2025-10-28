@@ -5,6 +5,7 @@
   import Controls from "./components/Controls.svelte";
   import Hint from "./components/Hint.svelte";
   import { generateSudoku, isValid, getSolution } from "./utils/sudoku.js";
+  import { unmount } from "svelte";
 
   let difficulty = "medium";
   let board = [
@@ -30,17 +31,32 @@
   }
 
   function newGame() {
-    board = generateSudoku(difficulty);
+    board = generateBoard();
     solution = getSolution();
     highlightedCell = null;
     message = "";
   }
 
+  function generateBoard() {
+    const newBoard = Array.from({ length: 9 }, () =>
+      Array.from({ length: 9 }, () => 0)
+    );
+
+    //randomly fill some cells to create some numbers between 1 and 9
+    for (let i = 0; i < 20; i++) {
+      const row = Math.floor(Math.random() * 9);
+      const col = Math.floor(Math.random() * 9);
+      const num = Math.floor(Math.random() * 9) + 1;
+      newBoard[row][col] = num;
+    }
+    return newBoard;
+  }
+
   function checkSolution() {
     let correct = true;
 
-    for (let r = 0; r < 6; r++) {
-      for (let c = 0; c < 6; c++) {
+    for (let r = 0; r < 9; r++) {
+      for (let c = 0; c < 9; c++) {
         const val = board[r][c];
         if (val === 0 || !isValid(board, r, c, val)) {
           correct = false;
@@ -61,8 +77,8 @@
   }
 
   function giveHint() {
-    for (let r = 0; r < 6; r++) {
-      for (let c = 0; c < 6; c++) {
+    for (let r = 0; r < 9; r++) {
+      for (let c = 0; c < 9; c++) {
         if (board[r][c] === 0) {
           board[r][c] = solution[r][c];
           highlightedCell = { row: r, col: c };
@@ -77,9 +93,11 @@
 </script>
 
 <main>
-  <h1>🧩 6×6 Sudoku</h1>
+  <h1>🧩 9X9 Sudoku</h1>
 
-  <SudokuGrid {board} {highlightedCell} onCellChange={handleCellChange} />
+  <SudokuGrid {board} onCellChange={handleCellChange} />
+
+  <button on:click={newGame}>New Game</button>
 
   <Controls onNewGame={newGame} onCheckSolution={checkSolution} />
   <Hint onHint={giveHint} />
