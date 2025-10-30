@@ -57,7 +57,7 @@
   }
 
   .cell:focus {
-    background-color: #cde7ff;
+    background-color: #1278d7;
   }
 
   /* ✅ Thick lines every 3x3 for visual clarity */
@@ -76,6 +76,6 @@
 
   /* ✅ Optional subtle hover effect */
   .cell:hover {
-    background-color: #f8f8f8;
+    background-color: #1278d7;
   }
 </style>
