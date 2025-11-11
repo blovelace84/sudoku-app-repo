@@ -108,9 +108,53 @@
 </main>
 
 <style>
+  :global(body) {
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    background: linear-gradient(120deg, #d4fc79, #96e6a1);
+    background-attachment: fixed;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   main {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 2rem 3rem;
+    border-radius: 18px;
+    box-shadow: 0 6px 125px rgba(0, 0, 0, 0.2);
     text-align: center;
-    font-family: sans-serif;
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+  main:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 150px rgba(0, 0, 0, 0.3);
+  }
+
+  h1 {
+    color: #2e7d32;
+    margin-bottom: 1rem;
+  }
+
+  :global(button) {
+    background-color: #81c784;
+    color: white;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    margin-top: 1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition:
+      background-color 0.2s ease,
+      transform 0.2s ease;
+  }
+
+  :global(button:hover) {
+    background-color: #66bb6a;
+    transform: scale(1.05);
   }
 
   .message {
