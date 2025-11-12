@@ -1,14 +1,40 @@
 <script>
   import Board from "./components/Board.svelte";
   import { createEmptyBoard } from "./lib/board.js";
+  import { getBoardErrors } from "./lib/sudoku.js";
 
-  // Start with an empty board
   let board = createEmptyBoard();
+  let message = "";
+
+  // Check if board is complete and correct
+  function checkBoard() {
+    const errors = getBoardErrors(board);
+    if (errors.length > 0) {
+      message = "There are mistakes!";
+    } else if (board.flat().some((v) => v == null)) {
+      message = "The board is not complete.";
+    } else {
+      message = "Congratulations! You solved it!";
+    }
+  }
+
+  // Reset board to empty board
+  function newGame() {
+    board = createEmptyBoard();
+    message = "";
+  }
 </script>
 
 <main>
   <h1>Sudoku</h1>
   <Board bind:board />
+  <div class="controls">
+    <button on:click={checkBoard}>Check</button>
+    <button on:click={newGame}>New Game</button>
+  </div>
+  {#if message}
+    <p class="message">{message}</p>
+  {/if}
 </main>
 
 <style>
@@ -22,5 +48,22 @@
 
   h1 {
     margin-bottom: 1rem;
+  }
+
+  .controls {
+    margin-top: 1rem;
+    display: flex;
+    gap: 1rem;
+  }
+
+  button {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+
+  .message {
+    margin-top: 1rem;
+    font-weight: bold;
   }
 </style>
