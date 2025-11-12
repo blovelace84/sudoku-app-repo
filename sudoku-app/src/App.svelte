@@ -1,9 +1,9 @@
 <script>
   import Board from "./components/Board.svelte";
-  import { createEmptyBoard } from "./lib/board.js";
+  import { generateRandomPuzzle } from "./lib/generator";
   import { getBoardErrors } from "./lib/sudoku.js";
 
-  let board = createEmptyBoard();
+  let board = generateRandomPuzzle();
   let message = "";
 
   // Check if board is complete and correct
@@ -20,7 +20,7 @@
 
   // Reset board to empty board
   function newGame() {
-    board = createEmptyBoard();
+    board = generateRandomPuzzle(25); // 25 clues
     message = "";
   }
 </script>
