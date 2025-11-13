@@ -1,5 +1,6 @@
 <script>
   import Board from "./components/Board.svelte";
+  import Controls from "./components/Controls.svelte";
   import { generateRandomPuzzle } from "./lib/generator";
   import { getBoardErrors } from "./lib/sudoku.js";
 
@@ -18,6 +19,17 @@
     }
   }
 
+  function resetBoard() {
+    board = board.map((row) =>
+      row.map((v) => (typeof v === "number" ? null : v))
+    );
+    message = "";
+  }
+
+  function solveBoard() {
+    // Add some automatic solving logic here later
+  }
+
   // Reset board to empty board
   function newGame() {
     board = generateRandomPuzzle(25); // 25 clues
@@ -28,17 +40,33 @@
 <main>
   <h1>Sudoku</h1>
   <Board bind:board />
-  <div class="controls">
-    <button on:click={checkBoard}>Check</button>
-    <button on:click={newGame}>New Game</button>
-  </div>
+  <Controls
+    onNewGame={newGame}
+    onCheck={checkBoard}
+    onReset={resetBoard}
+    onSolve={solveBoard}
+  />
   {#if message}
     <p class="message">{message}</p>
   {/if}
 </main>
 
 <style>
+  :global(body) {
+    background: linear-gradient(135deg, #c9e4f7 0%, #e6f0fa 100%);
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    font-family: "poppins", sans-serif;
+  }
   main {
+    background: #ffffffcc;
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    padding: 2rem 3rem;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -47,23 +75,15 @@
   }
 
   h1 {
+    font-size: 2.2rem;
     margin-bottom: 1rem;
-  }
-
-  .controls {
-    margin-top: 1rem;
-    display: flex;
-    gap: 1rem;
-  }
-
-  button {
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    cursor: pointer;
+    color: #333;
   }
 
   .message {
     margin-top: 1rem;
-    font-weight: bold;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #333;
   }
 </style>
