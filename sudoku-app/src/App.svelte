@@ -77,15 +77,21 @@
     font-size: 2rem;
     margin-bottom: 1rem;
     text-align: center;
+    color: white;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
   }
 
   .board-container {
     background: rgb(128, 101, 205);
-    border-radius: 12px;
-    padding: 1rem;
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    border-radius: 14px;
+    padding: 1.2rem;
     width: 100%;
-    max-width: 400px;
+    max-width: 480px;
+    box-sizing: border-box;
+  }
+
+  .controls {
+    margin-top: 1rem;
   }
 
   .message {
@@ -101,8 +107,8 @@
       font-size: 1.6rem;
     }
     .board-container {
-      max-width: 90vw;
-      padding: 0.5rem;
+      max-width: 95vw;
+      padding: 0.8rem;
     }
   }
 </style>
