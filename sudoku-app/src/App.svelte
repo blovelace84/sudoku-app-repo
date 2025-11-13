@@ -39,7 +39,9 @@
 
 <main>
   <h1>Sudoku</h1>
-  <Board bind:board />
+  <div class="board-container">
+    <Board bind:board />
+  </div>
   <Controls
     onNewGame={newGame}
     onCheck={checkBoard}
@@ -62,28 +64,45 @@
     font-family: "poppins", sans-serif;
   }
   main {
-    background: #ffffffcc;
-    backdrop-filter: blur(10px);
-    border-radius: 12px;
-    padding: 2rem 3rem;
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 2rem;
-    font-family: sans-serif;
+    justify-content: flex-start;
+    min-height: 100vh;
+    padding: 1rem;
+    background: linear-gradient(135deg, #1c08d0, #c9e4f7);
   }
 
   h1 {
-    font-size: 2.2rem;
+    font-size: 2rem;
     margin-bottom: 1rem;
-    color: #333;
+    text-align: center;
+  }
+
+  .board-container {
+    background: rgb(128, 101, 205);
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    width: 100%;
+    max-width: 400px;
   }
 
   .message {
     margin-top: 1rem;
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: 500;
+    text-align: center;
     color: #333;
+  }
+
+  @media (max-width: 600px) {
+    h1 {
+      font-size: 1.6rem;
+    }
+    .board-container {
+      max-width: 90vw;
+      padding: 0.5rem;
+    }
   }
 </style>

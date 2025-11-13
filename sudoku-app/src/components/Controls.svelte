@@ -15,50 +15,40 @@
 <style>
   .controls {
     display: flex;
-    gap: 1rem;
-    margin-top: 1rem;
-    justify-content: center;
-    align-items: center;
     flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 1rem;
   }
 
   button {
-    background-color: rgb(19, 203, 28);
-    border: 2px solid #000;
+    background: #000;
+    color: #fff;
+    border: none;
+    padding: 0.6rem 1.2rem;
     border-radius: 8px;
-    padding: 0.5rem 1rem;
     font-size: 1rem;
-    font-weight: 600;
+    font-weight: bold;
     cursor: pointer;
-    transition: all 0.2s ease-in-out;
-    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+    transition:
+      transform 0.2s,
+      background 0.2s;
   }
 
   button:hover {
-    background-color: #f1f1f1;
+    background: #222;
     transform: translateY(-2px);
   }
 
   button:active {
-    background-color: #e1e1e1;
     transform: translateY(0);
   }
 
-  /* Optional dark mode variant */
-  @media (prefers-color-scheme: dark) {
+  @media (max-width: 600px) {
     button {
-      background-color: #1e1e1e;
-      color: #fff;
-      border-color: #fff;
-      box-shadow: 0 2px 5px rgba(255, 255, 255, 0.1);
-    }
-
-    button:hover {
-      background-color: #333;
-    }
-
-    button:active {
-      background-color: #222;
+      flex: 1 1 45%;
+      font-size: 0.9rem;
+      padding: 0.5rem;
     }
   }
 </style>
