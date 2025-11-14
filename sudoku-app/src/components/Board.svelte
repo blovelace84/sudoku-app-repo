@@ -1,5 +1,6 @@
 <script>
   export let board;
+  export let initialBoard;
   export let handleInput;
 
   function onInput(event, row, col) {
@@ -20,11 +21,12 @@
   {#each board as row, rowIndex}
     {#each row as cell, colIndex}
       <input
-        class="cell"
+        class="cell {initialBoard[rowIndex][colIndex] !== 0 ? 'given' : ''}"
         type="text"
         maxlength="1"
-        bind:value={board[rowIndex][colIndex]}
+        value={cell === 0 ? "" : String(cell)}
         on:input={(e) => onInput(e, rowIndex, colIndex)}
+        disabled={initialBoard[rowIndex][colIndex] !== 0}
       />
     {/each}
   {/each}
@@ -34,44 +36,45 @@
   .board {
     display: grid;
     grid-template-columns: repeat(9, 1fr);
-    width: 100%;
+    width: min(90vw, 500px);
+    margin: 0 auto;
     max-width: 450px;
     aspect-ratio: 1 / 1;
-    border: 3px solid #333;
+    border: 3px solid black;
     background: white;
   }
 
   .cell {
     width: 100%;
-    color: black;
-    background: white;
-    font-weight: 600;
-    height: 100%;
-    text-align: center;
-    font-size: clamp(1rem, 4vw, 1.8rem);
-    border: 1px solid #999;
+    aspect-ratio: 1 / 1;
+    border: 1px solid #000;
     outline: none;
-    background: #fafafa;
+    background: white;
+    color: black;
   }
 
-  /* Thick borders for 3×3 blocks */
-  .cell:nth-child(3n + 1) {
-    border-left-width: 3px;
+  .cell:disabled {
+    cursor: default;
   }
-  .cell:nth-child(3n) {
-    border-right-width: 3px;
+
+  .cell.given {
+    background: #d59be8;
+    color: black;
   }
-  .cell:nth-child(n + 1):nth-child(-n + 9) {
+
+  /* Custom selectors for thickness */
+
+  /* Custom selectors for thickness */
+  .cell:nth-child(n + 1):nth-child(-n + 9),
+  .cell:nth-child(n + 28):nth-child(-n + 36),
+  .cell:nth-child(n + 55):nth-child(-n + 63) {
     border-top-width: 3px;
   }
-  .cell:nth-last-child(-n + 9) {
-    border-bottom-width: 3px;
-  }
 
-  /* Darker background for fixed cells if you want */
-  .fixed {
-    background: #ddd;
-    font-weight: bold;
+  .cell:nth-child(n + 19):nth-child(-n + 27),
+  .cell:nth-child(n + 46):nth-child(-n + 54),
+  .cell:nth-child(n + 73):nth-child(-n + 81) {
+    border-bottom-width: 3px;
   }
 
   @media (max-width: 480px) {

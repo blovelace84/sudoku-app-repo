@@ -4,7 +4,8 @@
   import { generateRandomPuzzle } from "./lib/generator";
   import { getBoardErrors } from "./lib/sudoku.js";
 
-  let board = generateRandomPuzzle();
+  let initialBoard = generateRandomPuzzle();
+  let board = JSON.parse(JSON.stringify(initialBoard)); // Deep copy
   let message = "";
 
   function handleInput(row, col, value) {
@@ -33,18 +34,17 @@
   function solveBoard() {
     // Add some automatic solving logic here later
   }
-
   // Reset board to empty board
   function newGame() {
-    board = generateRandomPuzzle(25); // 25 clues
+    initialBoard = generateRandomPuzzle(25); // 25 clues
+    board = JSON.parse(JSON.stringify(initialBoard)); // Deep copy
     message = "";
   }
 </script>
 
 <main>
-  <h1>Sudoku</h1>
   <div class="board-container">
-    <Board bind:board {handleInput} />
+    <Board bind:board {initialBoard} {handleInput} />
   </div>
   <Controls
     onNewGame={newGame}
@@ -77,14 +77,6 @@
     background: linear-gradient(135deg, #1c08d0, #c9e4f7);
   }
 
-  h1 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-    text-align: center;
-    color: white;
-    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-  }
-
   .board-container {
     background: rgb(128, 101, 205);
     border-radius: 14px;
@@ -92,10 +84,6 @@
     width: 100%;
     max-width: 480px;
     box-sizing: border-box;
-  }
-
-  .controls {
-    margin-top: 1rem;
   }
 
   .message {
@@ -107,9 +95,6 @@
   }
 
   @media (max-width: 600px) {
-    h1 {
-      font-size: 1.6rem;
-    }
     .board-container {
       max-width: 95vw;
       padding: 0.8rem;
