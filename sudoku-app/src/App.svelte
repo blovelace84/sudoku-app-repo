@@ -7,6 +7,10 @@
   let board = generateRandomPuzzle();
   let message = "";
 
+  function handleInput(row, col, value) {
+    board[row][col] = value;
+    board = [...board];
+  }
   // Check if board is complete and correct
   function checkBoard() {
     const errors = getBoardErrors(board);
@@ -40,7 +44,7 @@
 <main>
   <h1>Sudoku</h1>
   <div class="board-container">
-    <Board bind:board />
+    <Board bind:board {handleInput} />
   </div>
   <Controls
     onNewGame={newGame}
