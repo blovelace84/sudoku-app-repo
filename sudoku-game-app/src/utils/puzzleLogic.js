@@ -4,8 +4,13 @@ import { initialPuzzle, generateEditableMask } from './puzzleLoader';
 
 // 🔄 Reset to original puzzle
 export function resetPuzzle() {
-  puzzle.set(initialPuzzle);
-  editable.set(generateEditableMask(initialPuzzle));
+  const resetGrid = initialPuzzle.map(row => [...row]);
+  const resetMask = generateEditableMask(resetGrid);
+
+  puzzle.set(resetGrid);
+  editable.set(resetMask);
+
+  console.log("🔄 Puzzle has been reset to the original state.");
 }
 
 // ✅ Validate puzzle (basic uniqueness check)
