@@ -2,6 +2,7 @@ import { writable } from "svelte/store";
 
 export const puzzle = writable([]);
 export const editable = writable([]);
+export const statusMessage = writable({ message: '', type: 'info'});
 
 export function updateCell(row, col, value){
     puzzle.update(p => {

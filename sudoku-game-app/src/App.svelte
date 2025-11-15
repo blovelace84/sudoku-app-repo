@@ -1,11 +1,12 @@
 <script>
   import SudokuGrid from "./components/SudokuGrid.svelte";
   import Controls from "./components/Controls.svelte";
-  import { puzzle, editable } from "./stores/sudokuStore";
-  import { initialPuzzle, generateEditableMask } from "./utils/puzzleLoader";
-
-  puzzle.set(initialPuzzle);
-  editable.set(generateEditableMask(initialPuzzle));
+  import { puzzle, editable, statusMessage } from "./stores/sudokuStore";
+  import { initialPuzzles, generateEditableMask } from "./utils/puzzleLoader";
+  import Message from "./components/Message.svelte";
+  $: msg = $statusMessage;
+  puzzle.set(initialPuzzles[0]);
+  editable.set(generateEditableMask(initialPuzzles[0]));
 </script>
 
 <main class="app">
@@ -13,6 +14,7 @@
   <div class="grid-wrapper">
     <SudokuGrid />
     <Controls />
+    <Message message={msg.message} type={msg.type} />
   </div>
 </main>
 

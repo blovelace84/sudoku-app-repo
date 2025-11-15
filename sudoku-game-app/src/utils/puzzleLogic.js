@@ -1,5 +1,5 @@
 import { get } from 'svelte/store';
-import { puzzle, editable } from '../stores/sudokuStore';
+import { puzzle, editable, statusMessage } from '../stores/sudokuStore';
 import { getRandomPuzzle, generateEditableMask } from './puzzleLoader';
 
 // 🔄 Reset to original puzzle
@@ -38,7 +38,11 @@ export function validatePuzzle() {
     }
   }
 
-  alert(errors.length ? "❌ Conflicts found:\n" + errors.join("\n") : "✅ Puzzle is valid!");
+  if(errors.length){
+    statusMessage.set({ message: "❌ Conflicts found:\n" + errors.join("\n"), type: 'error'})
+  }else{
+    statusMessage.set({ message: "✅ Puzzle is valid!", type: 'success' });
+  }
 }
 
 // 🧠 Solve puzzle using backtracking
@@ -76,9 +80,9 @@ export function solvePuzzle() {
 
   if (solve()) {
     puzzle.set(grid);
-    alert("🧠 Puzzle solved!");
+    statusMessage.set({ message: "🧠 Puzzle solved!", type: 'success' });
   } else {
-    alert("❌ No solution found.");
+    statusMessage.set({ message: "❌ No solution found.", type: 'error' });
   }
 }
 

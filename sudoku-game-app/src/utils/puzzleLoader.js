@@ -1,5 +1,5 @@
 // Sample puzzles (you can expand this later)
-export const puzzles = [
+export const initialPuzzles = [
   [
     [2, 3, 9, 8, 7, 5, 1, null, null],
     [4, 5, 6, null, null, 9, 2, null, 7],
@@ -31,6 +31,6 @@ export function generateEditableMask(puzzle) {
 
 // Get a random puzzle
 export function getRandomPuzzle() {
-  const index = Math.floor(Math.random() * puzzles.length);
-  return puzzles[index];
+  const index = Math.floor(Math.random() * initialPuzzles.length);
+  return initialPuzzles[index];
 }
