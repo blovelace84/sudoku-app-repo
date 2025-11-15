@@ -1,10 +1,10 @@
 import { get } from 'svelte/store';
 import { puzzle, editable } from '../stores/sudokuStore';
-import { initialPuzzle, generateEditableMask } from './puzzleLoader';
+import { getRandomPuzzle, generateEditableMask } from './puzzleLoader';
 
 // 🔄 Reset to original puzzle
 export function resetPuzzle() {
-  const resetGrid = initialPuzzle.map(row => [...row]);
+  const resetGrid = getRandomPuzzle();
   const resetMask = generateEditableMask(resetGrid);
 
   puzzle.set(resetGrid);
@@ -94,7 +94,7 @@ export function clearEditableCells() {
 
 // 🎲 Load new puzzle (placeholder for future expansion)
 export function loadNewPuzzle() {
-  const newPuzzle = initialPuzzle; // Replace with random or difficulty-based puzzle later
+  const newPuzzle = getRandomPuzzle(); // Replace with random or difficulty-based puzzle later
   puzzle.set(newPuzzle);
   editable.set(generateEditableMask(newPuzzle));
 }
