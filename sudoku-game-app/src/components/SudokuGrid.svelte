@@ -42,7 +42,8 @@
   .sudoku-grid {
     --cell-size: 2.5rem;
     display: grid;
-    grid-template-columns: repeat(9, var(--cell-size));
+    grid-template-columns: repeat(9, minmax(2rem, 1fr));
+    grid-template-rows: repeat(9, minmax(2rem, 1fr));
     gap: 0;
     border: 2px solid #333;
     width: fit-content;
